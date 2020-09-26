@@ -3,9 +3,8 @@ Arreglo de Objetos
  */
 package ejercicio1;
 
-import java.util.Random;
-
-
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -13,36 +12,42 @@ import java.util.Random;
  */
 public class Ejercicio1 {
     
-     private int contador = 0, tope = 22;
+     private int contador = -1, tope = 22;
      private Datos alumnos[] = new Datos[tope];
-     Random random = new Random();//Variable para 
+     private ArrayList<Integer> numbers = new ArrayList<>(tope);
     
-    public void elegir_al_azar(){
-        
-        List<Integer> numbers = new ArrayList<>(tope);
-            for (int i=1;i<tope;i++){
-                numbers.add(i);
-            }
-
-        while (tope==22){
-            if(numbers.size()>=1){
-            int randomIndex = random.nextInt(numbers.size());
-             int num_lista=numbers.get(randomIndex);
-            
-        
-    }
+    
+    
+     /**
+      * Método para obtener número de lista al azar y reestablecer lista
+      * @return tipo entero
+      */
+    public int elegir_al_azar(){
+        if(contador==tope){
+            Collections.shuffle(numbers);
+            contador=-1;
         }
-        
-        return num_lista;
+        contador++;
+        return alumnos[numbers.get(contador)].numeroDeLista;
     }
     
+    /**
+     * PONER PRIMERO EN EL MAIN
+     * Método para inicializar la lista de números al azar
+     */
+    public void inicializarArrayList(){
+        for (int i=1;i<tope;i++){
+                numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+    }    
     
    /**
      * Método para validar si el número es tipo flotante o no, independientemente de la presencia del punto o no
      * @param cadena tipo String
      * @return tipo boolean, true= número flotante, false= no flotante
      */
-    public boolean esNumentero(String cadena){
+    public boolean esNumEntero(String cadena){
         try { //Intenta convertirlo a doble y si no hay error retorna verdadero
             Integer.parseInt(cadena);
             return true;
@@ -56,7 +61,7 @@ public class Ejercicio1 {
      * @return entero
      * Si regresa 1 todos son caracteres y si regresa 0 incluye numeros y caracteres especiales
      */
-        public int tieneNumConEspacio(String cadena){//Método para validar números y espacios
+    public int tieneNumConEspacio(String cadena){//Método para validar números y espacios
         int b=5;
         for(int i=0; i<cadena.length(); i++){
             int a= cadena.charAt(i);
